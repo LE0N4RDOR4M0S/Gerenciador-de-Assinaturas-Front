@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React, { useEffect, useState } from "react"
 import "src/globals.css"
 import { Bell, Moon, Search, Settings, Sun } from "lucide-react"
 import Button from "@/components/ui/button"
@@ -21,6 +21,8 @@ import { useAuthStore } from "@/lib/stores/auth-store"
 import { useRouter } from "next/navigation"
 import { useNotificationStore } from "@/lib/stores/notification-store"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
+import { Home } from "lucide-react"
 
 export function DashboardHeader() {
   const { setTheme } = useTheme()
@@ -30,8 +32,38 @@ export function DashboardHeader() {
 
   const unreadCount = notifications.filter((n) => !n.read).length
 
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsVisible(false)
+      } else {
+        setIsVisible(true)
+      }
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [lastScrollY])
+
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <header
+      className={`sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 transition-transform duration-300 ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
+      <div className="flex h-14 items-center border-b px-4">
+        <Link href="/" className="flex items-center gap-2 font-semibold">
+          <Home className="h-5 w-5" />
+          <span>SubFlow</span>
+        </Link>
+      </div>
       <div className="flex items-center gap-2 md:hidden">
         <Button className="shrink-0">
           <Menu className="h-5 w-5" />
@@ -41,69 +73,9 @@ export function DashboardHeader() {
       <div className="flex items-center gap-2 md:ml-auto">
         <form className="relative hidden md:flex">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input type="search" placeholder="Search..." className="w-64 rounded-lg bg-background pl-8 md:w-80" />
+          <Input type="search" placeholder="Pesquisar..." className="w-64 rounded-lg bg-background pl-8 md:w-80" />
         </form>
         <DropdownMenu trigger={<Button className="relative"><Bell className="h-5 w-5" /></Button>}>
-          <DropdownMenuTrigger>
-            <Button className="relative">
-              <Bell className="h-5 w-5" />
-              {unreadCount > 0 && (
-                <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs">{unreadCount}</Badge>
-              )}
-              <span className="sr-only">Toggle notifications</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Notifications</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {notifications.length === 0 ? (
-              <DropdownMenuItem>No notifications</DropdownMenuItem>
-            ) : (
-              notifications.slice(0, 5).map((notification) => (
-                <DropdownMenuItem key={notification.id} >
-                  {notification.message}
-                </DropdownMenuItem>
-              ))
-            )}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => router.push("/notifications")}>View all notifications</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <DropdownMenu trigger={<Button className="relative"><Bell className="h-5 w-5" /></Button>}>
-          <DropdownMenuTrigger>
-            <Button>
-              <Settings className="h-5 w-5" />
-              <span className="sr-only">Toggle settings</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => setTheme("light")}>
-              <Sun className="mr-2 h-4 w-4" />
-              Light
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("dark")}>
-              <Moon className="mr-2 h-4 w-4" />
-              Dark
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("system")}>
-              <Laptop className="mr-2 h-4 w-4" />
-              System
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => router.push("/settings")}>Settings</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <DropdownMenu trigger={<Button className="relative"><Bell className="h-5 w-5" /></Button>}>
-          <DropdownMenuTrigger>
-            <Button className="rounded-full">
-              <Avatar>
-                <AvatarImage src="/placeholder.svg?height=32&width=32" alt={user?.email || "User"} />
-                <AvatarFallback>{user?.email?.charAt(0).toUpperCase() || "U"}</AvatarFallback>
-              </Avatar>
-              <span className="sr-only">Toggle user menu</span>
-            </Button>
-          </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>{user?.email || "User"}</DropdownMenuLabel>
             <DropdownMenuSeparator />
@@ -164,4 +136,3 @@ function Laptop(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
-
