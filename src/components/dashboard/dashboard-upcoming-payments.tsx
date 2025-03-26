@@ -47,12 +47,12 @@ export function DashboardUpcomingPayments({ className, ...props }: DashboardUpco
   return (
     <Card className={cn("col-span-3", className)} {...props}>
       <CardHeader>
-        <CardTitle>Upcoming Payments</CardTitle>
-        <CardDescription>You have {upcomingPayments.length} upcoming payments</CardDescription>
+        <CardTitle>Pagamentos</CardTitle>
+        <CardDescription>Você tem {upcomingPayments.length} pagamentos em processamento</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {upcomingPayments.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No upcoming payments</p>
+          <p className="text-sm text-muted-foreground">Sem pagamentos em processo</p>
         ) : (
           upcomingPayments.map((payment) => {
             const daysUntil = getDaysUntil(payment.dueDate)
@@ -79,7 +79,7 @@ export function DashboardUpcomingPayments({ className, ...props }: DashboardUpco
                           : "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
                     )}
                   >
-                    {daysUntil} days
+                    {daysUntil} dias
                   </span>
                 </div>
               </div>
@@ -89,7 +89,7 @@ export function DashboardUpcomingPayments({ className, ...props }: DashboardUpco
       </CardContent>
       <CardFooter>
         <Button variant="outline" className="w-full" onClick={() => router.push("/payments")}>
-          View all payments
+          Ver todos pagamentos
         </Button>
       </CardFooter>
     </Card>

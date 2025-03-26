@@ -22,15 +22,14 @@ export function DashboardCards() {
     })
     .reduce((sum, payment) => sum + payment.amount, 0)
 
-  // Calculate month-over-month change (dummy data for demo)
   const previousMonthRevenue = monthlyRevenue * 0.85
   const revenueChange = ((monthlyRevenue - previousMonthRevenue) / previousMonthRevenue) * 100
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+      <Card title="Active Subscriptions">
+        <CardHeader >
+          <CardTitle >Total Revenue</CardTitle>
           <DollarSign className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
@@ -38,9 +37,9 @@ export function DashboardCards() {
           <p className="text-xs text-muted-foreground">Lifetime revenue</p>
         </CardContent>
       </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Monthly Revenue</CardTitle>
+      <Card title="Monthly Revenue">
+        <CardHeader>
+          <CardTitle>Monthly Revenue</CardTitle>
           <CreditCard className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
@@ -61,9 +60,9 @@ export function DashboardCards() {
           </div>
         </CardContent>
       </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Active Subscriptions</CardTitle>
+      <Card title="Active Subscriptions">
+        <CardHeader >
+          <CardTitle >Active Subscriptions</CardTitle>
           <Users className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>

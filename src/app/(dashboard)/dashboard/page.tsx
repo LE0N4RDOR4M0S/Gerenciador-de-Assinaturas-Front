@@ -12,16 +12,16 @@ export default function DashboardPage() {
       </div>
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="reports">Reports</TabsTrigger>
+          <TabsTrigger value="overview">Geral</TabsTrigger>
+          <TabsTrigger value="analytics">Análises</TabsTrigger>
+          <TabsTrigger value="reports">Relatórios</TabsTrigger>
         </TabsList>
         <TabsContent value="overview" className="space-y-4">
           <DashboardCards />
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <DashboardCharts className="lg:col-span-4" />
-            <DashboardUpcomingPayments className="lg:col-span-3" />
-          </div>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1">
+            <DashboardCharts className="lg:col-span-5" />
+            <DashboardUpcomingPayments className="lg:col-span-1" />
+            </div>
         </TabsContent>
         <TabsContent value="analytics" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

@@ -10,8 +10,7 @@ export default function CouponsPage() {
         <h1 className="text-3xl font-bold tracking-tight">Promotional Coupons</h1>
         <Button>
           <Link href="/coupons/new">
-            <PlusIcon className="mr-2 h-4 w-4" />
-            Create Coupon
+            <PlusIcon/>{/* Create Coupon  TODO: Aplicar hover para novo  */}
           </Link>
         </Button>
       </div>

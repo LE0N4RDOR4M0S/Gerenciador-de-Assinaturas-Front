@@ -2,7 +2,7 @@ import type React from "react"
 import { ThemeProvider } from "@/components/ui/theme-provider"
 import Toaster from "@/components/ui/toaster"
 import { AppProvider } from "@/lib/providers/app-provider"
-import "./globals.css"
+import "src/globals.css"
 
 export default function RootLayout({
   children,

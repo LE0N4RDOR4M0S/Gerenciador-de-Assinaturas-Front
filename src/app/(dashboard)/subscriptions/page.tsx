@@ -10,8 +10,7 @@ export default function SubscriptionsPage() {
         <h1 className="text-3xl font-bold tracking-tight">Subscriptions</h1>
         <Button>
           <Link href="/subscriptions/new">
-            <PlusIcon className="mr-2 h-4 w-4" />
-            New Subscription
+            <PlusIcon/>New Subscription
           </Link>
         </Button>
       </div>
