@@ -15,7 +15,6 @@ export function DropdownMenu({ trigger, children }: DropdownMenuProps) {
     <Menu as="div" className="relative inline-block text-left">
       <Menu>
         {trigger}
-        <ChevronDown className="w-4 h-4 ml-2" />
       </Menu>
 
       <Transition

@@ -1,17 +1,17 @@
 "use client";
-import React from 'react';
+import React, { ReactNode } from 'react';
 import "src/globals.css"
-// Componente Table
-export const Table: React.FC = ({ children }) => {
-  return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full table-auto border-collapse">{children}</table>
-    </div>
-  );
-};
 
-// Componente TableHeader
-export const TableHeader: React.FC = ({ children }) => {
+
+interface TableProps {
+  children?: ReactNode
+}
+
+export function Table({ children }: TableProps) {
+  return <table className="table">{children}</table>
+}
+
+export const TableHeader: React.FC<{ children?: ReactNode }> = ({ children }) => {
   return (
     <thead className="bg-gray-100 text-left text-sm font-semibold text-gray-700">
       {children}
@@ -19,22 +19,18 @@ export const TableHeader: React.FC = ({ children }) => {
   );
 };
 
-// Componente TableRow
-export const TableRow: React.FC = ({ children }) => {
+export const TableRow: React.FC<{ children?: ReactNode }> = ({ children }) => {
   return <tr className="border-b">{children}</tr>;
 };
 
-// Componente TableHead
-export const TableHead: React.FC = ({ children }) => {
+export const TableHead: React.FC<{ children?: ReactNode }> = ({ children }) => {
   return <th className="px-4 py-2 text-sm">{children}</th>;
 };
 
-// Componente TableBody
-export const TableBody: React.FC = ({ children }) => {
+export const TableBody: React.FC<{ children?: ReactNode }> = ({ children }) => {
   return <tbody>{children}</tbody>;
 };
 
-// Componente TableCell
-export const TableCell: React.FC = ({ children }) => {
+export const TableCell: React.FC<{ children?: ReactNode }> = ({ children }) => {
   return <td className="px-4 py-2 text-sm">{children}</td>;
 };

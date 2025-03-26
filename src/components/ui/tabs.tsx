@@ -63,5 +63,5 @@ interface TabsContentProps {
 export const TabsContent: React.FC<TabsContentProps> = ({ children, value, selectedTab }) => {
   if (selectedTab !== value) return null;
 
-  return <div className="p-4">{children}</div>;
+  return <div>{children}</div>;
 };

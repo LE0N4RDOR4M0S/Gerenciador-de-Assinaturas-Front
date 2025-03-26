@@ -2,7 +2,7 @@
 
 import "src/globals.css"
 import { cn } from "@/lib/utils"
-import { CreditCard, Home, LayoutDashboard, Package, Settings, Tag, Users } from "lucide-react"
+import { CreditCard, LayoutDashboard, Package, Settings, Tag, Users } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -13,27 +13,27 @@ const sidebarItems = [
     icon: LayoutDashboard,
   },
   {
-    title: "Subscriptions",
+    title: "Assinaturas",
     href: "/subscriptions",
     icon: Package,
   },
   {
-    title: "Payments",
+    title: "Pagamentos",
     href: "/payments",
     icon: CreditCard,
   },
   {
-    title: "Coupons",
+    title: "Cupons",
     href: "/coupons",
     icon: Tag,
   },
   {
-    title: "Users",
+    title: "Usuários",
     href: "/users",
     icon: Users,
   },
   {
-    title: "Settings",
+    title: "Configurações",
     href: "/settings",
     icon: Settings,
   },
@@ -44,13 +44,7 @@ export function DashboardSidebar() {
 
   return (
     <div className="hidden border-r bg-background md:block">
-      <div className="flex h-full flex-col gap-2">
-        <div className="flex h-14 items-center border-b px-4">
-          <Link href="/" className="flex items-center gap-2 font-semibold">
-            <Home className="h-5 w-5" />
-            <span>SubFlow</span>
-          </Link>
-        </div>
+      <div className="flex h-full flex-col gap-8">
         <div className="flex-1 overflow-auto py-2">
           <nav className="grid items-start px-2 text-sm font-medium">
             {sidebarItems.map((item) => (

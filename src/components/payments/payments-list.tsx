@@ -30,15 +30,19 @@ export function PaymentsList() {
   )
 
   function formatDate(dateString: string) {
-    return new Intl.DateTimeFormat("en-US", {
+    const date = new Date(dateString)
+    if (isNaN(date.getTime())) {
+      return "Invalid date"
+    }
+    return new Intl.DateTimeFormat("pt-BR", {
       year: "numeric",
       month: "short",
       day: "numeric",
-    }).format(new Date(dateString))
+    }).format(date)
   }
 
   return (
-    <Card>
+    <Card title="Payment History">
       <CardHeader>
         <CardTitle>Payment History</CardTitle>
         <CardDescription>View and manage all payment transactions</CardDescription>
@@ -64,36 +68,30 @@ export function PaymentsList() {
               <TableHead>Date</TableHead>
               <TableHead>Due Date</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredPayments.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={7} className="text-center">
+                <TableCell>
                   No payments found
                 </TableCell>
               </TableRow>
             ) : (
               filteredPayments.map((payment) => (
                 <TableRow key={payment.id}>
-                  <TableCell className="font-medium">{payment.customerName}</TableCell>
+                  <TableCell>{payment.customerName}</TableCell>
                   <TableCell>{payment.description}</TableCell>
                   <TableCell>${payment.amount.toFixed(2)}</TableCell>
                   <TableCell>{formatDate(payment.date)}</TableCell>
                   <TableCell>{formatDate(payment.dueDate)}</TableCell>
                   <TableCell>
-                    <Badge variant={payment.status === "paid" ? "default" : "destructive"}>{payment.status}</Badge>
+                    <Badge>{payment.status}</Badge>
                   </TableCell>
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                          <span className="sr-only">Open menu</span>
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
+                  <TableCell >
+                    <DropdownMenu trigger={<Button className="h-8 w-8 p-0"><MoreHorizontal className="h-4 w-4" /></Button>}>
+                      <DropdownMenuContent>
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem onClick={() => router.push(`/payments/${payment.id}`)}>
                           View details

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 
 // Definindo os tipos das props
 interface CardProps {
@@ -40,9 +40,24 @@ export const CardFooter: React.FC<{ children: React.ReactNode }> = ({ children }
 };
 
 
-export const ChartContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div className="p-4">{children}</div>;
-};
+export function ChartContainer({
+  children,
+  className,
+  config,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  config?: {
+    revenue: { label: string; color: string };
+    subscriptions: { label: string; color: string };
+  };
+}): JSX.Element {
+  return (
+    <div className={`chart-container ${className || ''}`}>
+      {children}
+    </div>
+  );
+}
 
 export const ChartTooltip: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <div className="bg-white p-2 shadow-md">{children}</div>;
